@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query.Sql;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Vidly_Kurs.Models;
 
 namespace Vidly_Kurs
 {
@@ -54,6 +56,14 @@ namespace Vidly_Kurs
 
             app.UseMvc(routes =>
             {
+                /*
+                routes.MapRoute(
+                    name:"MoviesByReleaseDate",
+                    template:"Movie/released/{year}/{month}", //"{controller=Movie}/{action=ByReleaseDate}/{year}/{month}"
+                    defaults: new {controller= "Movie", action = "ByReleaseDate" },
+                    new {year =@"\d{4}", month =@"\d{2}"}
+                    );
+                    */
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
