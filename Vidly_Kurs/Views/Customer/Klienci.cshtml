@@ -1,0 +1,23 @@
+﻿@model Vidly_Kurs.ViewModels.CustomersViewModel
+@{
+    ViewData["Title"] = "Lista Klientów";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Klienci</h2>
+
+@if (Model.Customers.Count == 0)
+{
+    <text>Nikogo tu nie ma</text>
+}
+else
+{
+    <ul>
+
+        @foreach (var customer in Model.Customers)
+        {
+            <li><a asp-controller="Customer" asp-action="Klient" asp-route-id="@customer.Id" asp-route-name="@customer.Name">@customer.Name</a></li>
+        }
+    </ul>
+
+}

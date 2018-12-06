@@ -1,0 +1,22 @@
+﻿<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Kurs MVC .NET Core</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a asp-area="" asp-controller="Home" asp-action="About">O mnie</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
+                <li><a asp-controller="Movie" asp-action="Random">Random</a></li>
+                <li><a asp-controller="Customer" asp-action="Klienci">Klienci</a></li>
+                <li><a asp-controller="" asp-action="">Filmy</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
