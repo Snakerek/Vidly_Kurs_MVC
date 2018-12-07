@@ -10,7 +10,7 @@ using Vidly_Kurs.Models;
 namespace Vidly_Kurs.Migrations
 {
     [DbContext(typeof(Vidly_KursContext))]
-    [Migration("20181207131336_InitialModel")]
+    [Migration("20181207133240_InitialModel")]
     partial class InitialModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -186,6 +186,23 @@ namespace Vidly_Kurs.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Vidly_Kurs.Models.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CustomerId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Customers");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -229,6 +246,13 @@ namespace Vidly_Kurs.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Vidly_Kurs.Models.Customer", b =>
+                {
+                    b.HasOne("Vidly_Kurs.Models.Customer")
+                        .WithMany("Customers")
+                        .HasForeignKey("CustomerId");
                 });
 #pragma warning restore 612, 618
         }
