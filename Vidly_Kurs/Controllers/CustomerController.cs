@@ -27,7 +27,7 @@ namespace Vidly_Kurs.Controllers
             }
             else
             {
-               var viewModel = new Customer{Customers = customers};
+               var viewModel = new CustomerViewModel{customers = customers};
             return View(viewModel); 
             }
             
