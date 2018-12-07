@@ -10,25 +10,48 @@ namespace Vidly_Kurs.Controllers
 {
     public class CustomerController : Controller
     {
+        public List<Customer> customers = new List<Customer>
+        {
+            new Customer{Name = "Klient 1", Id = 0},
+            new Customer{Name = "Klient 2", Id = 1},
+            new Customer{Name = "Klient 3", Id = 2},
+            new Customer{Name = "Klient 4", Id = 3},
+            new Customer{Name = "Klient 5", Id = 4}
+        };
+        
         public IActionResult Klienci()
         {
-            var customers = new  List<Customer>
+            if (customers == null)
             {
-                new Customer{Name = "Klient 1", Id = 0},
-                new Customer{Name = "Klient 2", Id = 1},
-                new Customer{Name = "Klient 3", Id = 2},
-                new Customer{Name = "Klient 4", Id = 3},
-                new Customer{Name = "Klient 5", Id = 4}
-            };
-            var viewModel = new CustomersViewModel {Customers = customers};
-            return View(viewModel);
-            //return Content("asdfasd");
+            return View("BrakKlienta");
+            }
+            else
+            {
+               var viewModel = new Customer{Customers = customers};
+            return View(viewModel); 
+            }
+            
+            
         }
 
-        public IActionResult Klient(int id, string name)
+        public IActionResult Klient(int id)
         {
-            var customer = new Customer {Id = id, Name = name};
-            return View(customer);
+            if ((id < 0) || (customers == null))
+            {
+                return View("BrakKlienta");
+
+            }
+            else
+            {
+                if (customers.Count - 1 < id)
+                {
+                    return View("BrakKlienta");
+                }
+                else
+                {
+                    return View(customers[id]);
+                }
+            }
         }
     }
 }

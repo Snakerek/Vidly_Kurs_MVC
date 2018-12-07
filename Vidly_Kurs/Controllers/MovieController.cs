@@ -10,6 +10,18 @@ namespace Vidly_Kurs.Controllers
 {
     public class MovieController : Controller
     {
+        //GET: /Movie/Movies
+        public IActionResult Movies()
+        {
+            var movies = new  List<Movie>
+            {
+                new Movie{Id = 0, Name = "Shreck!"},
+                new Movie{Id = 1, Name = "Star Wars"},
+                new Movie{Id = 2, Name = "Toy Story"}
+            };
+            return View("Movies", new MoviesViewModel{Movies = movies});
+        }
+
         //GET: Movie/Random
         public IActionResult Random()
         {

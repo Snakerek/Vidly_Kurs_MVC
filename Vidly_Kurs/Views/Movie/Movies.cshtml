@@ -1,0 +1,24 @@
+﻿@model Vidly_Kurs.ViewModels.MoviesViewModel
+@{
+    ViewData["Title"] = "Filmy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Filmy</h2>
+@if (Model.Movies.Count == 0)
+{
+    <text>Nikogo tu nie ma</text>
+}
+else
+{
+    <ul class="list-group">
+
+        @foreach (var movie in Model.Movies)
+        {
+            <li  class="list-group-item">@movie.Name</li> /* <li><a asp-controller="Movie" asp-action="" asp-route-id="@movie.Id">@movie.Name</a></li> */
+        }
+    </ul>
+
+}
+
+

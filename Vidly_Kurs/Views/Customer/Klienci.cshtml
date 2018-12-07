@@ -1,4 +1,4 @@
-﻿@model Vidly_Kurs.ViewModels.CustomersViewModel
+﻿@model Customer
 @{
     ViewData["Title"] = "Lista Klientów";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,12 +12,12 @@
 }
 else
 {
-    <ul>
+    <div class="list-group">
 
         @foreach (var customer in Model.Customers)
         {
-            <li><a asp-controller="Customer" asp-action="Klient" asp-route-id="@customer.Id" asp-route-name="@customer.Name">@customer.Name</a></li>
+            <a class="list-group-item" asp-controller="Customer" asp-action="Klient" asp-route-id="@customer.Id">@customer.Name</a>
         }
-    </ul>
+    </div>
 
 }
