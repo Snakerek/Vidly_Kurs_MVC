@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Vidly_Kurs.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Vidly_Kurs
 {
@@ -36,6 +37,7 @@ namespace Vidly_Kurs
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<Vidly_KursContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Vidly_KursContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

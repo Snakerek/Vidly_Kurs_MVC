@@ -12,12 +12,28 @@
 }
 else
 {
-    <div class="list-group">
-
-        @foreach (var customer in Model.customers)
-        {
-            <a class="list-group-item" asp-controller="Customer" asp-action="Klient" asp-route-id="@customer.Id">@customer.Name</a>
-        }
-    </div>
+<div class="list-group">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Klient</th>
+                    <th>Zniżka</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in Model.customers)
+                {
+                    <tr>
+                <td>
+                    <a asp-controller="Customer" asp-action="Klient" asp-route-id="@customer.Id">  @customer.Name    </a>
+</td>
+                <td style="margin-left: 10px">
+                    @customer.MembershipType.DiscountRate%
+                </td>
+                </tr>
+            }
+                </tbody>
+            </table>
+</div>
 
 }
