@@ -17,7 +17,7 @@ else
             <thead>
                 <tr>
                     <th>Klient</th>
-                    <th>Zniżka</th>
+                    <th>Typ Subskrypcji</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +28,7 @@ else
                     <a asp-controller="Customer" asp-action="Klient" asp-route-id="@customer.Id">  @customer.Name    </a>
 </td>
                 <td style="margin-left: 10px">
-                    @customer.MembershipType.DiscountRate%
+                    @customer.MembershipType.Name
                 </td>
                 </tr>
             }
