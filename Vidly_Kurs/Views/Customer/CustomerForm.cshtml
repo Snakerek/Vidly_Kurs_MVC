@@ -6,7 +6,7 @@
 
 <h2>Klient</h2>
 
-@using (Html.BeginForm("Create", "Customer"))
+@using (Html.BeginForm("Save", "Customer"))
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.Name, new { @class = "control-label" })
@@ -38,6 +38,7 @@
 
 
     <button type="submit" class="btn btn-primary">Zapisz</button>
+                                                 @Html.HiddenFor(c=>c.Customer.Id);
     @if (!(Model.Customer == null))
      {
          <button asp-controller="Customer" asp-action="Klienci" class="btn btn-primary">Wróć</button>

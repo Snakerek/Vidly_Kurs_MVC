@@ -70,9 +70,23 @@ namespace Vidly_Kurs.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Customer customer)
+        public IActionResult Save(Customer customer)
         {
-            _context.Customers.Add(customer);
+            if (customer.Id==0)
+            {
+              _context.Customers.Add(customer);
+              
+            }
+            else
+            {
+                var customerDB = _context.Customers.SingleOrDefault(c => c.Id == customer.Id);
+
+                customerDB.Name = customer.Name;
+                customerDB.BirthdayDate = customer.BirthdayDate;
+                customerDB.Id = customer.Id;
+                customerDB.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+                customerDB.MembershipTypeId = customer.MembershipTypeId;
+            }
             _context.SaveChanges();
             return RedirectToAction("Klienci");
         }
