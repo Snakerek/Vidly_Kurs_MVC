@@ -62,10 +62,10 @@ namespace Vidly_Kurs.Controllers
             return View(customer); //Jeżeli klient istnieje to pokazujemy informacje o nim
         }
 
-        public IActionResult New()
+        public IActionResult CustomerForm()
         {
             var membershipTypes = _context.MembershipType.ToList();
-            var viewModel = new NewCustomerViewModel{MembershipTypes = membershipTypes};
+            var viewModel = new CustomerFormViewModel{MembershipTypes = membershipTypes};
             return View(viewModel);
         }
 
@@ -75,6 +75,21 @@ namespace Vidly_Kurs.Controllers
             _context.Customers.Add(customer);
             _context.SaveChanges();
             return RedirectToAction("Klienci");
+        }
+
+        public IActionResult Edytuj(int id)
+        {
+            try
+            {
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var viewModel = new CustomerFormViewModel {Customer = customer, MembershipTypes = _context.MembershipType.ToList()};
+            return View("CustomerForm",viewModel);
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+           
         }
     }
 }

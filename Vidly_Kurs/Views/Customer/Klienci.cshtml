@@ -18,6 +18,7 @@ else
                 <tr>
                     <th>Klient</th>
                     <th>Typ Subskrypcji</th>
+                    <th>Edytuj</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,9 +28,12 @@ else
                 <td>
                     <a asp-controller="Customer" asp-action="Klient" asp-route-id="@customer.Id">  @customer.Name    </a>
 </td>
-                <td style="margin-left: 10px">
-                    @customer.MembershipType.Name
-                </td>
+                        <td style="margin-left: 10px">
+                            @customer.MembershipType.Name
+                        </td>
+                        <td>
+                            <a asp-controller="Customer" asp-action="Edytuj" asp-route-id="@customer.Id">Edytuj</a>
+                        </td>
                 </tr>
             }
                 </tbody>

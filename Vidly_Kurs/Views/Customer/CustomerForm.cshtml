@@ -1,10 +1,10 @@
-﻿@model Vidly_Kurs.ViewModels.NewCustomerViewModel
+﻿@model Vidly_Kurs.ViewModels.CustomerFormViewModel
 @{
-    ViewData["Title"] = "New";
+    ViewData["Title"] = "Klient";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Nowy Klient</h2>
+<h2>Klient</h2>
 
 @using (Html.BeginForm("Create", "Customer"))
 {
@@ -17,15 +17,10 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.BirthdayDate, new {@class ="control-label"})
-        @Html.TextBoxFor(m => m.Customer.BirthdayDate, new
-        {
-            @class ="form-control w-25"
-        })
-    </div>
-    <div class="checkbox">
-        <label>
-        @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsletter) Zapisany do newslettera?
-        </label>
+        @Html.TextBoxFor(m => m.Customer.BirthdayDate, "{0:dd MMMM yyyy r.}", new
+   {
+       @class ="form-control w-25"
+   })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.MembershipTypeId, new {@class ="control-label"})
@@ -35,6 +30,18 @@
                 @class ="form-control w-25"
             })
     </div>
+    <div class="checkbox">
+        <label>
+        @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsletter) Zapisany do newslettera?
+        </label>
+    </div>
+
 
     <button type="submit" class="btn btn-primary">Zapisz</button>
+    @if (!(Model.Customer == null))
+     {
+         <button asp-controller="Customer" asp-action="Klienci" class="btn btn-primary">Wróć</button>
+     }
+    
+
 }
