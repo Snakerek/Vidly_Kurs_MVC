@@ -61,5 +61,20 @@ namespace Vidly_Kurs.Controllers
                 return View("BrakKlienta"); //Jeżeli nie ma takiego klienta to zwracamy widok z brakiem takiego klienta
             return View(customer); //Jeżeli klient istnieje to pokazujemy informacje o nim
         }
+
+        public IActionResult New()
+        {
+            var membershipTypes = _context.MembershipType.ToList();
+            var viewModel = new NewCustomerViewModel{MembershipTypes = membershipTypes};
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Create(Customer customer)
+        {
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
+            return RedirectToAction("Klienci");
+        }
     }
 }

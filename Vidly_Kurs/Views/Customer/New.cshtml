@@ -1,0 +1,40 @@
+﻿@model Vidly_Kurs.ViewModels.NewCustomerViewModel
+@{
+    ViewData["Title"] = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Nowy Klient</h2>
+
+@using (Html.BeginForm("Create", "Customer"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.Name, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Customer.Name, new
+        {
+            @class ="form-control w-25"
+        })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.BirthdayDate, new {@class ="control-label"})
+        @Html.TextBoxFor(m => m.Customer.BirthdayDate, new
+        {
+            @class ="form-control w-25"
+        })
+    </div>
+    <div class="checkbox">
+        <label>
+        @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsletter) Zapisany do newslettera?
+        </label>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.MembershipTypeId, new {@class ="control-label"})
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new  SelectList(Model.MembershipTypes,"Id","Name"),"Wybierz typ subskrypcji",
+            new
+            {
+                @class ="form-control w-25"
+            })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Zapisz</button>
+}
