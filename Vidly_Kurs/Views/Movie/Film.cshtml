@@ -1,0 +1,15 @@
+﻿@model Movie
+@{
+    ViewData["Title"] = @Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+<ul class="list-group">
+    <li class="list-group-item"><b>Gatunek:</b> @Model.Gatunek.Name</li>
+    <li class="list-group-item"><b>Data wydania:</b> @Model.DataWydania.Day-@Model.DataWydania.Month-@Model.DataWydania.Year</li>
+    <li class="list-group-item"><b>Data dodania do katalogu:</b> @Model.DataDodaniaDoKatalogu.Day-@Model.DataDodaniaDoKatalogu.Month-@Model.DataDodaniaDoKatalogu.Year</li>
+    <li class="list-group-item"><b>Ilość dostępnych kopii:</b> @Model.IloscDostepnychKopi</li>
+</ul>
+
+

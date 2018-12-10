@@ -12,6 +12,7 @@ namespace Vidly_Kurs.Models
     public class Vidly_KursContext : IdentityDbContext<Vidly_KursUser>
     {
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Movie> Movies { get; set; }
         public Vidly_KursContext(DbContextOptions<Vidly_KursContext> options)
             : base(options)
         {

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vidly_Kurs.Models;
 
 namespace Vidly_Kurs.Migrations
 {
     [DbContext(typeof(Vidly_KursContext))]
-    partial class Vidly_KursContextModelSnapshot : ModelSnapshot
+    [Migration("20181210085152_UzupelnienieMembershipTypes")]
+    partial class UzupelnienieMembershipTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,20 +209,6 @@ namespace Vidly_Kurs.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Vidly_Kurs.Models.Gatunek", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Gatunek");
-                });
-
             modelBuilder.Entity("Vidly_Kurs.Models.MembershipType", b =>
                 {
                     b.Property<byte>("Id");
@@ -249,7 +237,8 @@ namespace Vidly_Kurs.Migrations
 
                     b.Property<DateTime>("DataWydania");
 
-                    b.Property<int>("GatunekId");
+                    b.Property<string>("Gatunek")
+                        .IsRequired();
 
                     b.Property<int>("IloscDostepnychKopi");
 
@@ -257,8 +246,6 @@ namespace Vidly_Kurs.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GatunekId");
 
                     b.ToTable("Movies");
                 });
@@ -313,14 +300,6 @@ namespace Vidly_Kurs.Migrations
                     b.HasOne("Vidly_Kurs.Models.MembershipType", "MembershipType")
                         .WithMany()
                         .HasForeignKey("MembershipTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Vidly_Kurs.Models.Movie", b =>
-                {
-                    b.HasOne("Vidly_Kurs.Models.Gatunek", "Gatunek")
-                        .WithMany()
-                        .HasForeignKey("GatunekId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

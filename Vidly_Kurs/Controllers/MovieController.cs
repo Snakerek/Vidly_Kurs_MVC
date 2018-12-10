@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Vidly_Kurs.Models;
 using Vidly_Kurs.ViewModels;
 
@@ -10,18 +11,40 @@ namespace Vidly_Kurs.Controllers
 {
     public class MovieController : Controller
     {
+        private readonly Vidly_KursContext _context;
+
+        public MovieController(Vidly_KursContext context)
+        {
+            _context = context;
+        }
         //GET: /Movie/Movies
         public IActionResult Movies()
         {
-            var movies = new  List<Movie>
+            var movies = _context.Movies.Include(g => g.Gatunek).ToList();
+            if (movies == null)
             {
-                new Movie{Id = 0, Name = "Shreck!"},
-                new Movie{Id = 1, Name = "Star Wars"},
-                new Movie{Id = 2, Name = "Toy Story"}
-            };
-            return View("Movies", new MoviesViewModel{Movies = movies});
+                return NotFound();
+            }
+            else
+            {
+                return View("Movies", new MoviesViewModel{Movies = movies});
+            }
+            
         }
 
+        public IActionResult Film(int id)
+        {
+            var movie = _context.Movies.Include(g=>g.Gatunek).SingleOrDefault(i => i.Id == id);
+            if (movie==null)
+            {
+                return NotFound();
+            }
+            else
+            {
+               return View("Film", movie); 
+            }
+            
+        }
         //GET: Movie/Random
         public IActionResult Random()
         {
