@@ -32,6 +32,27 @@ namespace Vidly_Kurs.Controllers
             
         }
 
+        public IActionResult MovieForm(int? id)
+        {
+            var gatunki = _context.Gatunek.ToList();
+            if (id!=null)
+            {
+                var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+                var movieViewModel = new MoviesFormViewModel{Gatunek = gatunki, Movie = movie};
+                return View("MovieForm", movieViewModel);
+            }
+            else
+            {
+                return View("MovieForm", new MoviesFormViewModel { Gatunek = gatunki});
+            } 
+        }
+
+        [HttpPost]
+        public IActionResult Save(Movie movie)
+        {
+            return NotFound();
+        }
+
         public IActionResult Film(int id)
         {
             var movie = _context.Movies.Include(g=>g.Gatunek).SingleOrDefault(i => i.Id == id);

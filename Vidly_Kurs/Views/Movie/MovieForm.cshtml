@@ -1,0 +1,43 @@
+﻿@model Vidly_Kurs.ViewModels.MoviesFormViewModel
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (@Model.Movie == null)
+{
+    ViewData["Title"] = "Nowy Film";
+    <h2>Nowy Film</h2>
+}
+else
+{
+    ViewData["Title"] = "Edytuj ";
+    <h2>Edytuj @Model.Movie.Name</h2>
+}
+
+@using (Html.BeginForm("Save", "Movie"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.Name, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Movie.Name, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.DataWydania, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Movie.DataWydania, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.DataDodaniaDoKatalogu, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Movie.DataDodaniaDoKatalogu, new { @class = "form-control" })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.IloscDostepnychKopi, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Movie.IloscDostepnychKopi, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m=>m.Movie.GatunekId, new {@class="control-label"})
+        @Html.DropDownListFor(m=>m.Movie.GatunekId,new SelectList(Model.Gatunek,"Id","Name"),"Wybierz gatunek", new  {@class="form-control"})
+    </div>
+    <button type="submit" class="btn btn-primary">Zapisz</button>
+}
+

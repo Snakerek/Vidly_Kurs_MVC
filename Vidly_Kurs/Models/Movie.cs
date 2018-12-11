@@ -9,14 +9,14 @@ namespace Vidly_Kurs.Models
     public class Movie
     {
         public int Id { get; set; }
-        [Required]
+        [Required][Display(Name = "Tytuł")]
         public string Name { get; set; }
         public Gatunek Gatunek { get; set; }
         [Required]
         public int GatunekId { get; set; }
-        [Required] public DateTime DataWydania { get; set; }
-        [Required] public DateTime DataDodaniaDoKatalogu { get; set; }
-        [Required] public int IloscDostepnychKopi { get; set; }
+        [Required][Display(Name = "Data wydania")] public DateTime DataWydania { get; set; }
+        [Required][Display(Name = "Data dodania")] public DateTime DataDodaniaDoKatalogu { get; set; }
+        [Required][Display(Name = "Ilość kopii")] public int IloscDostepnychKopi { get; set; }
     }
 
 

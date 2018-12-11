@@ -38,7 +38,7 @@
 
 
     <button type="submit" class="btn btn-primary">Zapisz</button>
-                                                 @Html.HiddenFor(c=>c.Customer.Id);
+    @Html.HiddenFor(c=>c.Customer.Id);
     @if (!(Model.Customer == null))
      {
          <button asp-controller="Customer" asp-action="Klienci" class="btn btn-primary">Wróć</button>
