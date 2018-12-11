@@ -5,6 +5,7 @@
 }
 
 <h2>Filmy</h2>
+<h2><a class="btn btn-primary" asp-controller="Movie" asp-action="MovieForm">Dodaj Film</a></h2>
 @if (Model.Movies.Count == 0)
 {
     <text>Nikogo tu nie ma</text>
@@ -18,6 +19,7 @@ else
             <tr>
                 <th>Tytuł</th>
                 <th>Gatunek</th>
+                <th>Edycja</th>
             </tr>
             </thead>
             <tbody>
@@ -30,6 +32,7 @@ else
                     <td style="margin-left: 10px">
                         @movie.Gatunek.Name
                     </td>
+                    <td><a class="btn btn-danger btn-sm" asp-controller="Movie" asp-action="MovieForm" asp-route-id="@movie.Id">Edytuj</a></td>
                 </tr>
             }
             </tbody>

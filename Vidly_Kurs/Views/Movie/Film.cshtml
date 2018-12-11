@@ -11,5 +11,7 @@
     <li class="list-group-item"><b>Data dodania do katalogu:</b> @Model.DataDodaniaDoKatalogu.Day-@Model.DataDodaniaDoKatalogu.Month-@Model.DataDodaniaDoKatalogu.Year</li>
     <li class="list-group-item"><b>Ilość dostępnych kopii:</b> @Model.IloscDostepnychKopi</li>
 </ul>
+<a class="btn btn-primary" asp-controller="Movie" asp-action="Movies">Wróć</a>
+<a class="btn btn-danger" asp-controller="Movie" asp-action="MovieForm" asp-route-id="@Model.Id">Edytuj</a>
 
 

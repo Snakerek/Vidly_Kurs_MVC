@@ -50,7 +50,22 @@ namespace Vidly_Kurs.Controllers
         [HttpPost]
         public IActionResult Save(Movie movie)
         {
-            return NotFound();
+            if (movie.Id==0)
+            {
+                _context.Movies.Add(movie);
+            }
+            else
+            {
+                var movieDB = _context.Movies.SingleOrDefault(m => m.Id == movie.Id);
+                movieDB.Name = movie.Name;
+                movieDB.DataDodaniaDoKatalogu = movie.DataDodaniaDoKatalogu;
+                movieDB.DataWydania = movie.DataWydania;
+                movieDB.GatunekId = movie.GatunekId;
+                movieDB.IloscDostepnychKopi = movie.IloscDostepnychKopi;
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction("Movies");
         }
 
         public IActionResult Film(int id)
