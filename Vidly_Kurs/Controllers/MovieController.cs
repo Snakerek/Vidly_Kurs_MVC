@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -51,8 +50,6 @@ namespace Vidly_Kurs.Controllers
         [HttpPost]
         public IActionResult Save(Movie movie)
         {
-            try
-            {
             if (movie.Id==0)
             {
                 _context.Movies.Add(movie);
@@ -67,14 +64,7 @@ namespace Vidly_Kurs.Controllers
                 movieDB.IloscDostepnychKopi = movie.IloscDostepnychKopi;
             }
 
-           
-                _context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                return RedirectToAction("Movies");
-            }
-
+            _context.SaveChanges();
             return RedirectToAction("Movies");
         }
 
