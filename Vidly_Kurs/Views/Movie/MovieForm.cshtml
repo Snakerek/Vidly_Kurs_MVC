@@ -14,33 +14,40 @@ else
     ViewData["Title"] = "Edytuj ";
     <h2>Edytuj @Model.Movie.Name</h2>
 }
-
 @using (Html.BeginForm("Save", "Movie"))
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Movie.Name, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.Movie.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m=>m.Movie.Name)
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Movie.DataWydania, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.Movie.DataWydania, "{0:dd MMMM yyyy}", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m=>m.Movie.DataWydania)
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Movie.DataDodaniaDoKatalogu, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.Movie.DataDodaniaDoKatalogu,"{0:dd MMMM yyyy}", new { @class = "form-control" })
-
+    @Html.ValidationMessageFor(m=>m.Movie.DataDodaniaDoKatalogu)
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Movie.IloscDostepnychKopi, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.Movie.IloscDostepnychKopi, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m=>m.Movie.IloscDostepnychKopi)
     </div>
     <div class="form-group">
         @Html.LabelFor(m=>m.Movie.GatunekId, new {@class="control-label"})
         @Html.DropDownListFor(m=>m.Movie.GatunekId,new SelectList(Model.Gatunek,"Id","Name"),"Wybierz gatunek", new  {@class="form-control"})
+    @Html.ValidationMessageFor(m=>m.Movie.GatunekId)
     </div>
     @Html.HiddenFor(m=>m.Movie.Id)
     <button type="submit" class="btn btn-primary">Zapisz</button>
-                                                 <button class="btn btn-primary" asp-controller="Movie" asp-action="Movies">Wróć</button>
-
+    <a class="btn btn-primary" asp-controller="Movie" asp-action="Movies">Wróć</a>
+@Html.AntiForgeryToken()
+}
+@section Scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
