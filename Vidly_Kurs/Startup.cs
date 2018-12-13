@@ -59,7 +59,6 @@ namespace Vidly_Kurs
                 { ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto });
             app.UseAuthentication();
             app.UseCookiePolicy();
-
             app.UseMvc(routes =>
             {
                 /*
