@@ -70,6 +70,7 @@ namespace Vidly_Kurs.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Save(Customer customer)
         {
             if (!ModelState.IsValid)
