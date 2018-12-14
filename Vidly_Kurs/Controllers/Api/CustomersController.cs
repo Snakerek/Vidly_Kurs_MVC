@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
+using Microsoft.EntityFrameworkCore;
 using Vidly_Kurs.Models;
 
 namespace Vidly_Kurs.Controllers.Api
@@ -30,25 +31,30 @@ namespace Vidly_Kurs.Controllers.Api
 
         //GET /api/customers/1
         [HttpGet("{id}")]
-        public Customer GetCustomer(int id)
+        public async Task<ActionResult<Customer>> GetCustomerAsync(int id)
         {
-            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
-            if(customer==null)
-                throw new ValidationException();
+            var customer = await _context.Customers.SingleOrDefault(c => c.Id == id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
 
             return customer;
         }
 
         //POST /api/customers
         [HttpPost]
-        public Customer CreateCustomer(Customer customer)
+        public async Task<ActionResult<Customer>> CreateCustomerAsync(Customer customer)
         {
             if (!ModelState.IsValid)
             {
-                throw new ValidationException();
+                return BadRequest();
             }
 
-            return customer;
+            _context.Customers.Add(customer);
+           await _context.SaveChangesAsync();
+            return CreatedAtAction("GetCustomer",new {id = customer.Id}, customer);
         }
 
         //PUT /api/customers/1
@@ -57,7 +63,7 @@ namespace Vidly_Kurs.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest();
             }
 
             var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
@@ -72,25 +78,25 @@ namespace Vidly_Kurs.Controllers.Api
             customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
             customerInDb.MembershipTypeId = customer.MembershipTypeId;
             await _context.SaveChangesAsync();
-            return Accepted();
+            return NoContent();
         }
         [HttpDelete]
-        public IActionResult DeleteCustomer(int id)
+        public async Task<ActionResult<Customer>> DeleteCustomerAsync(int id)
         {
             if (!ModelState.IsValid)
             {
                 return NotFound();
             }
 
-            var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customerInDb = await _context.Customers.SingleOrDefaultAsync(c => c.Id == id);
             if (customerInDb == null)
             {
                 return NotFound();
             }
 
             _context.Customers.Remove(customerInDb);
-            _context.SaveChanges();
-            return Accepted();
+           await _context.SaveChangesAsync();
+            return customerInDb;
         }
     }
 }
