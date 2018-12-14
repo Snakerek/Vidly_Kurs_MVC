@@ -82,21 +82,16 @@ namespace Vidly_Kurs.Controllers.Api
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<Customer>> DeleteCustomerAsync(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return NotFound();
-            }
-
             var customerInDb = await _context.Customers.SingleOrDefaultAsync(c => c.Id == id);
             if (customerInDb == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customerInDb);
+            _context.Remove(customerInDb);
            await _context.SaveChangesAsync();
             return customerInDb;
         }

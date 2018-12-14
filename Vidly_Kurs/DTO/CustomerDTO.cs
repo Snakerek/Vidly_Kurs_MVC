@@ -17,7 +17,7 @@ namespace Vidly_Kurs.DTO
         public bool IsSubscribedToNewsletter { get; set; }
 
 
-        [Min18YIfMember]
+        //[Min18YIfMember]
         public byte MembershipTypeId { get; set; }
 
         public DateTime? BirthdayDate { get; set; }
