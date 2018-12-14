@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,10 +12,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query.Sql;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Vidly_Kurs.Models;
 using Microsoft.EntityFrameworkCore;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace Vidly_Kurs
 {
@@ -73,6 +74,8 @@ namespace Vidly_Kurs
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            Mapper.Initialize(c=>c.AddProfile<MappingProfile>());
         }
     }
 }

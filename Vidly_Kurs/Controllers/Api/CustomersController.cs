@@ -4,11 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 using Microsoft.EntityFrameworkCore;
+using Vidly_Kurs.DTO;
 using Vidly_Kurs.Models;
 
 namespace Vidly_Kurs.Controllers.Api
@@ -24,42 +26,44 @@ namespace Vidly_Kurs.Controllers.Api
         }
         //GET /api/customers
         [HttpGet]
-        public IEnumerable<Customer> GetCustomers()
+        public IEnumerable<CustomerDTO> GetCustomers()
         {
-            return _context.Customers.ToList();
+            return _context.Customers.ToList().Select(Mapper.Map<Customer,CustomerDTO>);
         }
 
         //GET /api/customers/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomerAsync(int id)
+        public async Task<ActionResult<CustomerDTO>> GetCustomerAsync(int id)
         {
-            var customer = await _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customer = await _context.Customers.SingleOrDefaultAsync(c => c.Id == id);
 
             if (customer == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return Mapper.Map<Customer,CustomerDTO>(customer);
         }
 
         //POST /api/customers
         [HttpPost]
-        public async Task<ActionResult<Customer>> CreateCustomerAsync(Customer customer)
+        public async Task<ActionResult<CustomerDTO>> CreateCustomerAsync(CustomerDTO customerDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            _context.Customers.Add(customer);
+            var customer = Mapper.Map<CustomerDTO, Customer>(customerDto);
+           await _context.Customers.AddAsync(customer);
            await _context.SaveChangesAsync();
-            return CreatedAtAction("GetCustomer",new {id = customer.Id}, customer);
+            customerDto.Id = customer.Id;
+            return CreatedAtAction("GetCustomer",new {id = customerDto.Id}, customerDto);
         }
 
         //PUT /api/customers/1
         [HttpPut]
-        public async Task<IActionResult> UpdateCustomerAsync(int id, Customer customer)
+        public async Task<IActionResult> UpdateCustomerAsync(int id, CustomerDTO customerDto)
         {
             if (!ModelState.IsValid)
             {
@@ -72,14 +76,12 @@ namespace Vidly_Kurs.Controllers.Api
                 return NotFound();
             }
 
-            customerInDb.Name = customer.Name;
-            customerInDb.BirthdayDate = customer.BirthdayDate;
-            customerInDb.Id = customer.Id;
-            customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
-            customerInDb.MembershipTypeId = customer.MembershipTypeId;
+            Mapper.Map(customerDto, customerInDb);
+
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
         [HttpDelete]
         public async Task<ActionResult<Customer>> DeleteCustomerAsync(int id)
         {
