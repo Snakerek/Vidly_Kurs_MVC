@@ -13,12 +13,13 @@
 else
 {
 <div class="list-group">
-        <table class="table table-bordered table-hover">
+        <table id="customers" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Klient</th>
                     <th>Typ Subskrypcji</th>
                     <th>Edytuj</th>
+                    <th>Usuń</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,10 +35,32 @@ else
                         <td>
                             <a asp-controller="Customer" asp-action="Edytuj" asp-route-id="@customer.Id">Edytuj</a>
                         </td>
+                        <td><a data-customer-id="@customer.Id" class="btn-link js-delete">Usuń</a></td>
                 </tr>
             }
                 </tbody>
             </table>
 </div>
 
+}
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#customers .js-delete').on("click",
+                function () {
+                    var button = $(this)
+                    if (confirm("Czy jesteś pewny, że chcesz usunąć klienta?")) {
+                        $.ajax({
+                            url: "/api/customers/"+ button.attr("data-customer-id"),
+                            method: "DELETE",
+                            success: function() {
+                                button.parents("tr").remove();
+                            }
+                        });
+                    }
+                });
+        });
+    
+    </script>
 }

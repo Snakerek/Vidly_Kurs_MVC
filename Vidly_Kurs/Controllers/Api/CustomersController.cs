@@ -81,7 +81,6 @@ namespace Vidly_Kurs.Controllers.Api
             await _context.SaveChangesAsync();
             return NoContent();
         }
-
         [HttpDelete("{id}")]
         public async Task<ActionResult<Customer>> DeleteCustomerAsync(int id)
         {
