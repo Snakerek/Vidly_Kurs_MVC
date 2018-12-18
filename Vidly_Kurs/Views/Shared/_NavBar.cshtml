@@ -13,10 +13,17 @@
             <ul class="nav navbar-nav">
                 <li><a asp-area="" asp-controller="Home" asp-action="About">O mnie</a></li>
                 <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
-                <li><a asp-controller="Movie" asp-action="Random">Random</a></li>
-                <li><a asp-controller="Customer" asp-action="Klienci">Klienci</a></li>
-                <li><a asp-controller="Movie" asp-action="Movies">Filmy</a></li>
-                <li><a asp-controller="Customer" asp-action="CustomerForm">Nowy Klient</a></li>
+                @{if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-controller="Movie" asp-action="Random">Random</a></li>
+                        <li><a asp-controller="Customer" asp-action="Klienci">Klienci</a></li>
+                        <li><a asp-controller="Movie" asp-action="Movies">Filmy</a></li>
+                        <li><a asp-controller="Customer" asp-action="CustomerForm">Nowy Klient</a></li>
+                    }
+
+                }
+
+
                 @{
                     await Html.RenderPartialAsync("_LoginPartial");
                 }
