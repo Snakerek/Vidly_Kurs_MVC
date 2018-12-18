@@ -6,6 +6,7 @@ namespace Vidly_Kurs.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            /*
             migrationBuilder.UpdateData(
                 table: "MembershipType",
                 keyColumn: "Id",
@@ -13,6 +14,7 @@ namespace Vidly_Kurs.Migrations
                 column: "Name",
                 value: "Opłata na żądanie"
             );
+            */
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

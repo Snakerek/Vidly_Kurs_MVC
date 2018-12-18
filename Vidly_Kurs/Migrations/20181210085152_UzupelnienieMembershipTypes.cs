@@ -7,6 +7,7 @@ namespace Vidly_Kurs.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            /*
             migrationBuilder.InsertData(
                 table: "MembershipType",
                 columns: new string[] { "Id", "SignUpFee", "DurationInMonths", "DiscountRate", "Name" },
@@ -34,6 +35,7 @@ namespace Vidly_Kurs.Migrations
                 columns: new string[] { "Id", "Name", "IsSubscribedToNewsletter", "MembershipTypeId", "BirthdayDate" },
                 values: new Object[] { "2", "Marry K", true, "3", "1985-02-04" }
             );
+            */
         }
     
         protected override void Down(MigrationBuilder migrationBuilder)
