@@ -51,17 +51,6 @@ namespace Vidly_Kurs.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Save(Movie movie)
         {
-            if (!ModelState.IsValid)
-            {
-                var viewModel = new MoviesFormViewModel()
-                {
-                    Movie = movie,
-                    Gatunek = _context.Gatunek.ToList()
-                };
-                return View("MovieForm", viewModel);
-            }
-
-
             if (movie.Id==0)
             {
                 _context.Movies.Add(movie);
@@ -75,7 +64,16 @@ namespace Vidly_Kurs.Controllers
                 movieDB.GatunekId = movie.GatunekId;
                 movieDB.IloscDostepnychKopi = movie.IloscDostepnychKopi;
             }
-
+        /*    if (!ModelState.IsValid)
+            {
+                var viewModel = new MoviesFormViewModel()
+                {
+                    Movie = movie,
+                    Gatunek = _context.Gatunek.ToList()
+                };
+                return View("MovieForm", viewModel);
+            }
+            */
             _context.SaveChanges();
             return RedirectToAction("Movies");
         }

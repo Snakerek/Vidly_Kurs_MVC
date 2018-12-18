@@ -73,6 +73,7 @@ namespace Vidly_Kurs.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Save(Customer customer)
         {
+            /*
             if (!ModelState.IsValid)
             {
                 var viewModel = new  CustomerFormViewModel
@@ -82,7 +83,7 @@ namespace Vidly_Kurs.Controllers
                 };
                 return View("CustomerForm",viewModel);
             }
-
+            */
             if (customer.Id==0)
             {
               _context.Customers.Add(customer);

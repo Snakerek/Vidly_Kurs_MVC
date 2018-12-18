@@ -13,31 +13,89 @@
 else
 {
 <div class="list-group">
-        <table class="table table-bordered table-hover">
+        <table id="customers" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Klient</th>
                     <th>Typ Subskrypcji</th>
-                    <th>Edytuj</th>
+                    @{//<th>Edytuj</th>
+                      }
+                    <th>Usuń</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var customer in Model.customers)
+            @{/*
+                foreach (var customer in Model.customers)
                 {
                     <tr>
-                <td>
-                    <a asp-controller="Customer" asp-action="Klient" asp-route-id="@customer.Id">  @customer.Name    </a>
-</td>
+                        <td>
+                            <a asp-controller="Customer" asp-action="Klient" asp-route-id="@customer.Id"> @customer.Name </a>
+                        </td>
                         <td style="margin-left: 10px">
                             @customer.MembershipType.Name
                         </td>
                         <td>
                             <a asp-controller="Customer" asp-action="Edytuj" asp-route-id="@customer.Id">Edytuj</a>
                         </td>
-                </tr>
-            }
+                        <td><a data-customer-id="@customer.Id" class="btn-link js-delete">Usuń</a></td>
+                    </tr>
+                }
+            */}
                 </tbody>
             </table>
 </div>
 
+}
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            $('#customers').DataTable({
+                ajax: {
+                    url: "/api/customers",
+                    dataSrc: "",
+                    method: "GET"
+                },
+                columns: [
+                    {
+                        data: "id",
+                        render: function(data, type, customer) {
+                            return "<a href='Edytuj/" + data + "'>" + customer.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "name"
+                    },
+                    {
+                        data: "id",
+                        render: function(data, type, customer) {
+                            return "<a class='btn-link js-delete' data-customer-id='" + customer.id + "'>Delete</a>";
+                        }
+                    }
+                ]
+            });
+        
+
+        $('#customers .js-delete').on("click",
+            function() {
+                var a = $(this)
+                bootbox.confirm("Czy na pewno chcesz usunąć tego klienta?",
+                    function(result) {
+                        if (result) {
+                            console.log("tak");
+                            $.ajax({
+                                url: "/api/customers/" + a.attr("data-customer-id"),
+                                method: "DELETE",
+                                success: function() {
+                                    a.parents("tr").remove();
+                                }
+                            });
+                        }
+
+                    });
+            });
+    });
+
+    </script>
 }
