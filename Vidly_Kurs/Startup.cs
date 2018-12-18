@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Vidly_Kurs.Models;
 using Microsoft.EntityFrameworkCore;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+using Microsoft.AspNetCore.Identity;
 
 namespace Vidly_Kurs
 {
@@ -39,7 +40,10 @@ namespace Vidly_Kurs
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;             
             });
-            
+            services.Configure<IdentityOptions>(b =>
+            {
+                b.User.RequireUniqueEmail = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,7 +80,6 @@ namespace Vidly_Kurs
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
             Mapper.Initialize(c=>c.AddProfile<MappingProfile>());
         }
     }

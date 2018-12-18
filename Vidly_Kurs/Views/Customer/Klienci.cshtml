@@ -51,7 +51,7 @@ else
     <script>
         $(document).ready(function () {
 
-            $('#customers').DataTable({
+            var table = $('#customers').DataTable({
                 ajax: {
                     url: "/api/customers",
                     dataSrc: "",
@@ -65,19 +65,19 @@ else
                         }
                     },
                     {
-                        data: "name"
+                        data: "membershipType.name"
                     },
                     {
                         data: "id",
                         render: function(data, type, customer) {
-                            return "<a class='btn-link js-delete' data-customer-id='" + customer.id + "'>Delete</a>";
+                            return "<button class='btn-link js-delete' data-customer-id='" + customer.id + "'>Delete</button>";
                         }
                     }
                 ]
             });
         
 
-        $('#customers .js-delete').on("click",
+        $('#customers').on("click", ".js-delete",
             function() {
                 var a = $(this)
                 bootbox.confirm("Czy na pewno chcesz usunąć tego klienta?",
@@ -87,8 +87,9 @@ else
                             $.ajax({
                                 url: "/api/customers/" + a.attr("data-customer-id"),
                                 method: "DELETE",
-                                success: function() {
-                                    a.parents("tr").remove();
+                                success: function ()
+                                {
+                                    table.row(a.parents("tr")).remove().draw();
                                 }
                             });
                         }

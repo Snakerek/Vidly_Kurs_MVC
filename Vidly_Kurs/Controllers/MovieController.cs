@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vidly_Kurs.Models;
@@ -9,6 +10,7 @@ using Vidly_Kurs.ViewModels;
 
 namespace Vidly_Kurs.Controllers
 {
+    [Authorize]
     public class MovieController : Controller
     {
         private readonly Vidly_KursContext _context;
@@ -18,6 +20,7 @@ namespace Vidly_Kurs.Controllers
             _context = context;
         }
         //GET: /Movie/Movies
+        [AllowAnonymous]
         public IActionResult Movies()
         {
             var movies = _context.Movies.Include(g => g.Gatunek).ToList();

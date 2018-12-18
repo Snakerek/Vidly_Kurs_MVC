@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -25,10 +26,11 @@ namespace Vidly_Kurs.Controllers.Api
             _context = vidlyKursContext;
         }
         //GET /api/customers
+        
         [HttpGet]
-        public IEnumerable<CustomerDTO> GetCustomers()
+        public IEnumerable<Customer> GetCustomers()
         {
-            return _context.Customers.ToList().Select(Mapper.Map<Customer,CustomerDTO>);
+            return _context.Customers.Include(c=>c.MembershipType).ToList();
         }
 
         //GET /api/customers/1

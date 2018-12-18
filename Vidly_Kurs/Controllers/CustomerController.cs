@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Vidly_Kurs.Models;
 using Vidly_Kurs.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Vidly_Kurs.Controllers
 {
+    [Authorize]
     public class CustomerController : Controller
     {
         private readonly Vidly_KursContext _context; //Tworzymy prop dla kontextu bazy danych
@@ -61,7 +63,7 @@ namespace Vidly_Kurs.Controllers
                 return View("BrakKlienta"); //Jeżeli nie ma takiego klienta to zwracamy widok z brakiem takiego klienta
             return View(customer); //Jeżeli klient istnieje to pokazujemy informacje o nim
         }
-
+        [Authorize(Roles ="Admin")]
         public IActionResult CustomerForm()
         {
             var membershipTypes = _context.MembershipType.ToList();
