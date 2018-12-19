@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vidly_Kurs.Models;
 
 namespace Vidly_Kurs.Migrations
 {
     [DbContext(typeof(Vidly_KursContext))]
-    partial class Vidly_KursContextModelSnapshot : ModelSnapshot
+    [Migration("20181219114459_WypozyczeniaUpdateDataZwrotu")]
+    partial class WypozyczeniaUpdateDataZwrotu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,8 +254,6 @@ namespace Vidly_Kurs.Migrations
                     b.Property<int>("GatunekId");
 
                     b.Property<int>("IloscDostepnychKopi");
-
-                    b.Property<int>("IloscKopi");
 
                     b.Property<string>("Name")
                         .IsRequired();

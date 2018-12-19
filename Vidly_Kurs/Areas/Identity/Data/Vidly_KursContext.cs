@@ -15,6 +15,7 @@ namespace Vidly_Kurs.Models
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MembershipType> MembershipType { get; set; }
         public DbSet<Gatunek> Gatunek { get; set; }
+        public DbSet<Wyporzyczenia> Wyporzyczenia { get; set; }
         public Vidly_KursContext(DbContextOptions<Vidly_KursContext> options)
             : base(options)
         {

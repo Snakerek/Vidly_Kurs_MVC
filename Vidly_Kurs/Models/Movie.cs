@@ -16,7 +16,8 @@ namespace Vidly_Kurs.Models
         public int GatunekId { get; set; }
         [Required(ErrorMessage = "Podaj datę wydania")][Display(Name = "Data wydania")] public DateTime DataWydania { get; set; }
         [Required(ErrorMessage = "Podaj datę dodania do katalogu")][Display(Name = "Data dodania")] public DateTime DataDodaniaDoKatalogu { get; set; }
-        [Required(ErrorMessage = "Podaj ilość kopii")][Display(Name = "Ilość kopii")] public int IloscDostepnychKopi { get; set; }
+        [Display(Name = "Ilość kopii")] public int IloscDostepnychKopi { get; set; }
+        [Display(Name="Ilość kopii w bazie")] public int IloscKopi { get; set; }
     }
 
 
